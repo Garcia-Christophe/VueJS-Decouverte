@@ -28,6 +28,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  name: "MenuItem",
   props: {
     item: { type: Object, required: true },
     addToShoppingCart: Function,

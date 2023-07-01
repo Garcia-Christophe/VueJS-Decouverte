@@ -1,117 +1,31 @@
 <template>
-  <div id="app" class="app">
-    <h1>{{ restaurantName }}</h1>
-    <p class="description">
-      Bienvenue dans notre café {{ restaurantName }}! Nous sommes réputés pour
-      notre pain et nos merveilleuses pâtisseries. Faites vous plaisir dès le
-      matin ou avec un goûter réconfortant. Mais attention, vous verrez qu'il
-      est difficile de s'arrêter.
-    </p>
-
-    <section class="menu">
-      <h2>Menu</h2>
-      <MenuItem
-        v-for="item in simpleMenu"
-        :addToShoppingCart="addToShoppingCart"
-        :item="item"
-        :key="item.name"
-        @update:quantity="
-          (value) => {
-            console.log(value.target.value);
-            item.quantity = parseInt(value.target.value);
-          }
-        "
-      ></MenuItem>
-    </section>
-
-    <aside class="shopping-cart">
-      <h2>Panier d'achat : {{ shoppingCart }} articles</h2>
-    </aside>
-
-    <h2>Contactez nous</h2>
-    <p>Adresse : {{ address }}</p>
-    <p>Téléphone : {{ phone }}</p>
-    <p>Email : {{ email }}</p>
-    <p>Horaires :</p>
-    <ul>
-      <li>L-V: 06:00 à 16:00</li>
-      <li>Samedi: 07:00 à 14:00</li>
-      <li>Dimanche: 07:00 à 12:00</li>
-    </ul>
-    <footer class="footer">
-      <p>{{ copyright }}</p>
-    </footer>
-  </div>
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/contact">Contact</router-link>
+  </nav>
+  <router-view />
 </template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-
-import MenuItem from "./components/MenuItem.vue";
-
-export default defineComponent({
-  name: "app",
-  components: {
-    MenuItem,
-  },
-  data() {
-    return {
-      restaurantName: "La belle vue",
-      address: "18 avenue du Beurre, Paris, France",
-      email: "hello@cafewithavue.bakery",
-      phone: "01 88 88 88 88",
-      shoppingCart: 0,
-      simpleMenu: [
-        {
-          name: "Croissant",
-          image: {
-            source: "/images/croissant.jpg",
-            alt: "Un croissant",
-          },
-          inStock: true,
-          quantity: 1,
-        },
-        {
-          name: "Baguette de pain",
-          image: {
-            source: "/images/french-baguette.jpeg",
-            alt: "Quatre baguettes de pain",
-          },
-          inStock: true,
-          quantity: 1,
-        },
-        {
-          name: "Éclair",
-          image: {
-            source: "/images/eclair.jpg",
-            alt: "Éclair au chocolat",
-          },
-          inStock: false,
-          quantity: 1,
-        },
-      ],
-    };
-  },
-  computed: {
-    copyright(): string {
-      return `Copyright ${this.restaurantName} ${new Date().getFullYear()}`;
-    },
-  },
-  methods: {
-    addToShoppingCart(amount: number) {
-      this.shoppingCart += amount;
-    },
-  },
-});
-</script>
 
 <style lang="scss">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
