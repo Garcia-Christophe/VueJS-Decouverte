@@ -7,6 +7,7 @@
     />
     <div>
       <h3>{{ item.name }}</h3>
+      <p>Prix : {{ generatedPrice }}</p>
       <p v-if="item.inStock">En stock</p>
       <p v-else>En rupture de stock</p>
       <div>
@@ -32,6 +33,23 @@ export default defineComponent({
   props: {
     item: { type: Object, required: true },
     addToShoppingCart: Function,
+  },
+  data() {
+    return {
+      onSale: false,
+    };
+  },
+  computed: {
+    generatedPrice(): number {
+      return this.onSale ? (this.item.price * 0.9).toFixed(2) : this.item.price;
+    },
+  },
+  beforeMount() {
+    const today = new Date().getDate();
+
+    if (today % 2 === 0) {
+      this.onSale = true;
+    }
   },
 });
 </script>

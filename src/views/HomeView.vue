@@ -15,6 +15,8 @@
         :addToShoppingCart="addToShoppingCart"
         :item="item"
         :key="item.name"
+        @update:quantity="item.quantity = parseInt($event.target.value)"
+        @update:price="item.price = parseInt($event.target.value)"
       ></MenuItem>
     </section>
 
@@ -44,11 +46,12 @@ export default {
         {
           name: "Croissant",
           image: {
-            source: "/images/crossiant.jpg",
+            source: "/images/croissant.jpg",
             alt: "Un croissant",
           },
           inStock: true,
           quantity: 1,
+          price: 2.99,
         },
         {
           name: "Baguette de pain",
@@ -58,6 +61,7 @@ export default {
           },
           inStock: true,
           quantity: 1,
+          price: 3.99,
         },
         {
           name: "Éclair",
@@ -67,6 +71,7 @@ export default {
           },
           inStock: false,
           quantity: 1,
+          price: 4.99,
         },
       ],
     };
